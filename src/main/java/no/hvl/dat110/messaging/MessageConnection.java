@@ -33,29 +33,38 @@ public class MessageConnection {
 	}
 
 	public void send(Message message) {
+        
+            // 1. Pakk meldingen inn i et 128-bytes segment
+            byte[] data = MessageUtils.encapsulate(message);
 
-		byte[] data;
-		
-		// TODO - START
+            try {
+               
+                outStream.write(data);
+                
+                outStream.flush();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        
 		// encapsulate the data contained in the Message and write to the output stream
-		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
-			
-		// TODO - END
+
 
 	}
 
 	public Message receive() {
 
 		Message message = null;
-		byte[] data;
-		
-		// TODO - START
+		byte[] data = new byte[MessageUtils.SEGMENTSIZE];
+
+        try{
+            inStream.readFully(data);
+         message = MessageUtils.decapsulate(data);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
 		// read a segment from the input stream and decapsulate data into a Message
-		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
+
 		
 		// TODO - END
 		
