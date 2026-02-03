@@ -26,7 +26,7 @@ public class MessagingClient {
 
 		MessageConnection connection = null;
 
-        String navn = tobias;
+        String navn = "tobias";
 
 		// connect to messaging server using a TCP socket
 		// create and return a corresponding messaging connection
