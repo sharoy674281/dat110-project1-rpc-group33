@@ -33,8 +33,7 @@ public class MessageConnection {
 	}
 
 	public void send(Message message) {
-        
-            // 1. Pakk meldingen inn i et 128-bytes segment
+
             byte[] data = MessageUtils.encapsulate(message);
 
             try {
@@ -59,7 +58,9 @@ public class MessageConnection {
 
         try{
             inStream.readFully(data);
-         message = MessageUtils.decapsulate(data);
+
+            message = MessageUtils.decapsulate(data);
+
         }catch(IOException e){
             e.printStackTrace();
         }
