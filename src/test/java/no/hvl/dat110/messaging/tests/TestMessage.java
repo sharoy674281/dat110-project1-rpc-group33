@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import no.hvl.dat110.messaging.Message;
 import no.hvl.dat110.messaging.MessageUtils;
 
-class TestMessage {
+class   TestMessage {
 
 	private byte[] createData (int size) {
 	

@@ -43,17 +43,23 @@ public class RPCServer {
 		   
 		   // TODO - START
 		   // - receive a Message containing an RPC request
+            requestmsg = connection.receive();
 		   // - extract the identifier for the RPC method to be invoked from the RPC request
+            byte[] rpcdata = requestmsg.getData();
+            rpcid = rpcdata[0];
 		   // - extract the method's parameter by decapsulating using the RPCUtils
+            byte[] param = RPCUtils.decapsulate(rpcdata);
 		   // - lookup the method to be invoked
+            RPCRemoteImpl service = services.get(rpcid);
 		   // - invoke the method and pass the param
-		   // - encapsulate return value 
+            // invoke unmarshaller paramter, kjører ekte metode og marshaller returverdi
+            byte[] result = service.invoke(param);
+		   // - encapsulate return value
+            byte[] replydata = RPCUtils.encapsulate(rpcid, result);
 		   // - send back the message containing the RPC reply
-			
-		   if (true)
-				throw new UnsupportedOperationException(TODO.method());
-		   
-		   // TODO - END
+            // Klienten mottar -> dekapsulerer -> unmarshall(konverterer data) -> ferdig RPC call
+            replymsg = new Message(replydata);
+            connection.send(replymsg);
 
 			// stop the server if it was stop methods that was called
 		   if (rpcid == RPCCommon.RPIDSTOP) {

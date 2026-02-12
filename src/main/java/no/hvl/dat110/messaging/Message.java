@@ -10,10 +10,14 @@ public class Message {
 	// construction a Message with the data provided
 	public Message(byte[] data) {
 		
-	if(data != null && data.length <= 127){
-        this.data = data;
-
+	if (data == null) {
+        throw new UnsupportedOperationException("Message Constructor: data kan ikke være null");
     }
+
+    if (data.length > 127) {
+        throw new UnsupportedOperationException("Message Constructor: data er for lang, max 127 bytes");
+    }
+    this.data = data;
 
 
 	}
